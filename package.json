@@ -1,0 +1,15 @@
+{
+  "name": "githubActionsSandbox",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": "https://Yayadef@github.com/Yayadef/githubActionsSandbox.git",
+  "author": "YCAD-pro <yannick.cadet@sanofi.com>",
+  "license": "MIT",
+  "dependencies": {
+    "config": "^3.3.9"
+  }
+}

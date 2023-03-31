@@ -1,0 +1,36 @@
+name: From dispath test list
+run-name: ${{ github.actor }} for my step 3.1 😇
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: Environment
+        required: true
+        default: DEV
+        options:
+          - DEV
+          - TEST
+          - PROD
+      exclude_lambda:
+        type: boolean
+        description: Exclude lambda
+        default: false
+      exclude_dynamodb:
+        type: boolean
+        description: Exclude dynamodb
+        default: false
+#  push:
+#    branches:
+#      - master
+
+jobs:
+  run-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - run: npm install
+      - run: npm start ${{ github.event.inputs.environment }} -r [${{ github.event.inputs.exclude_lambda, github.event.inputs.exclude_dynamodb }}]

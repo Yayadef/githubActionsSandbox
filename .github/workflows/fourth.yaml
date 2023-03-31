@@ -1,0 +1,49 @@
+name: Manually trigger workflow
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: Environment
+        required: true
+        default: DEV
+        options:
+          - DEV
+          - TEST
+          - PROD
+      regions:
+        type: choice
+        description: Regions
+        default: all
+        options:
+          - all
+          - specified
+      specified_regions:
+        type: string
+        description: Specified regions
+        required: false
+        default: us-east-1
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  create-context:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: 'write env value'
+        run: |
+          echo '{' > ./config/default.json
+          echo "\"ENV_NAME\":\"${{ github.event.inputs.environment }}\"" >> ./config/default.json
+          echo '}' >> ./config/default.json
+          cat ./config/default.json
+      - name: 'install dependencies'
+        run: |
+          npm install
+      - name: 'Launch AWS platform-monitoring'
+        run: |
+          npm start
