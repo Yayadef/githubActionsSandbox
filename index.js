@@ -20,4 +20,3 @@ switch (params[2]) {
 
 console.log("\nTest config file :");
 console.log(config.get("ENV_NAME"));
-console.log("test to modify code");
